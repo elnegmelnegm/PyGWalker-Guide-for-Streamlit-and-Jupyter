@@ -1,30 +1,35 @@
-import streamlit as st
-import pandas as pd
 import pygwalker as pyg
+import streamlit.components.v1 as components
+import pandas as pd
+import streamlit as st
 
-# Set page configuration
+# Adjust the width of the Streamlit page
 st.set_page_config(
-    page_title="PyGWalker Demo",
+    page_title="DataViz App",
     page_icon=":snake:",
-    layout="wide",
-    initial_sidebar_state="expanded",
+    layout="wide"
 )
 
-# Load Data
-@st.cache_data
-def load_data(url):
-    df = pd.read_csv(url)
-    return df
-df = load_data("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv")
+def load_data(data):
+  return pd.read_csv(data)
 
-# Set title and subtitle
-st.title('PyGWalker Demo App')
-st.subheader('A demonstration of the PyGWalker Python library')
-
-# Display PyGWalker
-def load_config(file_path):
-    with open(file_path, 'r') as config_file:
-        config_str = config_file.read()
-    return config_str
-config = load_config('config.json')
-pyg.walk(df, env='Streamlit', dark='dark', spec=config)
+def main():
+  menu = ["Home", "About"]
+  choice = st.sidebar.selectbox("Menu", menu)
+  st.title("DataViz app")
+  if choice == "Home":
+    st.subheader("Home")
+    with st.form("upload_form"):
+      data_file = st.file_uploader("Upload your file", type=["csv", "text"])
+      submitted = st.form_submit_button("Submit")
+    if submitted:
+      df = load_data(data_file)
+      st.dataframe(df)
+      pyg_html = pyg.walk(df, return_html=True, hideDataSourceConfig=False)
+      components.html(pyg_html, height=1000, scrolling=True)
+  else:
+    image_path = '/content/drive/My Drive/pictures/picture.png'
+    st.image(image_path)
+    st.text("This app use PyGWalker and Streamlit")
+if __name__ == "__main__":
+  main()
