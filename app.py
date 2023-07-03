@@ -28,7 +28,7 @@ def main():
       pyg_html = pyg.walk(df, return_html=True, hideDataSourceConfig=False)
       components.html(pyg_html, height=1000, scrolling=True)
   else:
-    image_path = '/content/drive/My Drive/pictures/picture.png'
+    image_path = 'https://www.edaegypt.gov.eg/media/wc3lsydo/group-287.png'
     st.image(image_path)
     st.text("This app use PyGWalker and Streamlit")
 if __name__ == "__main__":
