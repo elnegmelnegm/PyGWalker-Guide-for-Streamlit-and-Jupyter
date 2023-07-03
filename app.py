@@ -31,7 +31,7 @@ def main():
     image_path = 'https://www.edaegypt.gov.eg/media/wc3lsydo/group-287.png'
     st.image(image_path)
     st.text("This app uses PyGWalker and Streamlit") 
-    st.text("PyGWalker is a Python library turning data into a visually interactive interface ")
+    st.text("PyGWalker is a Python library turning data into a visually interactive interface")
     st.text("and make your data exploration as intuitive as using Tableau.")
 if __name__ == "__main__":
   main()
